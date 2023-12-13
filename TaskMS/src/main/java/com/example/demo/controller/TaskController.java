@@ -12,7 +12,7 @@ import com.example.demo.entites.Task;
 import com.example.demos.services.ITaskService;
 
 @RestController
-@RequestMapping("/api/taskTable")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
 	private final ITaskService serviceTaskService;

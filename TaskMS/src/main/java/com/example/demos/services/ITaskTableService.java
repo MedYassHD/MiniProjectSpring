@@ -7,6 +7,7 @@ public interface ITaskTableService {
 	
 	void addTask(long taskTableId , Task task);
 	TaskTable createTaskTable(TaskTable taskTable);
-	TaskTable getTaskTable();
+	TaskTable getTaskTableById(Long taskTableId);
+	Iterable<TaskTable> getAll();
 
 }

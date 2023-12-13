@@ -3,30 +3,28 @@ package com.example.demo.entites;
 import java.io.Serializable;
 
 import com.example.demo.Enum.Priority;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.ManyToOne;
-
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@JsonDeserialize(using = TaskDeserializer.class)
 public abstract class Task implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	protected String name;
+
+	protected String description;
+
+	protected String type;
+
+	protected Priority priority;
+
+    @JsonIgnoreProperties("task")
+	private TaskTable taskTable;
+
+	protected Double taskCost;
 
 	public Long getId() {
 		return id;
@@ -36,13 +34,6 @@ public abstract class Task implements Serializable {
 		this.id = id;
 	}
 
-	protected String name;
-
-	protected String description;
-
-	@Enumerated(EnumType.STRING)
-	protected Priority priority;
-	
 	public String getName() {
 		return name;
 	}
@@ -75,6 +66,14 @@ public abstract class Task implements Serializable {
 		this.taskTable = taskTable;
 	}
 
+	public Double getTaskCost() {
+		return taskCost;
+	}
+
+	public void setTaskCost(Double taskCost) {
+		this.taskCost = taskCost;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -83,19 +82,4 @@ public abstract class Task implements Serializable {
 		this.type = type;
 	}
 
-	@ManyToOne
-	@JsonIgnore
-	private TaskTable taskTable;
-	
-	protected Double taskCost;
-	
-	protected String type;
-
-	public Double getTaskCost() {
-		return taskCost;
-	}
-
-	public void setTaskCost(Double taskCost) {
-		this.taskCost = taskCost;
-	}
 }
